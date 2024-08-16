@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Pitch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="p-8">
+            <h1 class="text-4xl font-extrabold mb-6 text-center text-blue-700">Generador de Pitch</h1>
+            <form id="pitchForm" class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                    <label for="projectName" class="block text-sm font-medium text-gray-700">Nombre del Proyecto</label>
+                    <input type="text" id="projectName" name="projectName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="hook" class="block text-sm font-medium text-gray-700">Gancho</label>
+                    <input type="text" id="hook" name="hook" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="problem" class="block text-sm font-medium text-gray-700">Problema</label>
+                    <textarea id="problem" name="problem" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50"></textarea>
+                </div>
+                <div>
+                    <label for="solution" class="block text-sm font-medium text-gray-700">Solución</label>
+                    <textarea id="solution" name="solution" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50"></textarea>
+                </div>
+                <div>
+                    <label for="prototype" class="block text-sm font-medium text-gray-700">Prototipo</label>
+                    <textarea id="prototype" name="prototype" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50"></textarea>
+                </div>
+                <div>
+                    <label for="businessModel" class="block text-sm font-medium text-gray-700">Modelo de Ingresos</label>
+                    <textarea id="businessModel" name="businessModel" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50"></textarea>
+                </div>
+                <div>
+                    <label for="team" class="block text-sm font-medium text-gray-700">Equipo / Roles</label>
+                    <textarea id="team" name="team" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50"></textarea>
+                </div>
+                <div>
+                    <label for="callToAction" class="block text-sm font-medium text-gray-700">Llamado a la Acción</label>
+                    <input type="text" id="callToAction" name="callToAction" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                </div>
+                <div class="col-span-1 md:col-span-2">
+                    <button type="submit" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Generar Pitch
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div id="generatedPitch" class="hidden bg-gray-50 p-8 mt-8 rounded-b-xl">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600">Pitch Generado</h2>
+            <div id="pitchContent" class="space-y-4"></div>
+        </div>
+    </div>
+
+    <footer class="mt-8 text-center text-gray-500 text-sm">
+        <p>Creado por: Maryi Adriana Cadrazco Suárez</p>
+        <p>Licencia Creative Commons</p>
+        <p>Esta obra está bajo una <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" class="text-blue-600 hover:underline">Licencia Creative Commons Atribución-NoComercial 4.0 Internacional</a>.</p>
+    </footer>
+
+    <script>
+        document.getElementById('pitchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            let pitchHTML = '';
+            
+            for (let [key, value] of formData.entries()) {
+                if (value.trim() !== '') {
+                    let title = key.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); });
+                    pitchHTML += `<div><strong>${title}:</strong> ${value}</div>`;
+                }
+            }
+            
+            document.getElementById('pitchContent').innerHTML = pitchHTML;
+            document.getElementById('generatedPitch').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
